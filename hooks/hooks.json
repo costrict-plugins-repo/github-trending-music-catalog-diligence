@@ -1,0 +1,17 @@
+{
+  "description": "Music catalog source-file protection. PreToolUse blocks writes into deals/{deal-id}/source/ (immutable evidence). Deal readiness is checked explicitly in the workflow; there is no Stop hook.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/protect-source-files.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
